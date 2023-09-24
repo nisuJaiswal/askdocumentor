@@ -5,7 +5,6 @@ import Link from "next/link";
 import React from "react";
 import styles from "./layout.module.css";
 import { HiAtSymbol, HiFingerPrint } from "react-icons/hi";
-import axios from "axios";
 import { Form, FormControl, FormField, FormItem } from "../ui/form";
 import { useForm } from "react-hook-form";
 
@@ -13,7 +12,7 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 const FormSchema = z.object({
@@ -31,6 +30,9 @@ const FormSchema = z.object({
 });
 const LoginForm = () => {
   const router = useRouter();
+  const { data: session } = useSession();
+  if (session && session.user) router.push("/");
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -112,7 +114,11 @@ const LoginForm = () => {
                 <Button type="submit">Login</Button>
               </div>
               <div className="input-button">
-                <button type="button" className={styles.button_custom}>
+                <button
+                  onClick={() => signIn("google")}
+                  type="button"
+                  className={styles.button_custom}
+                >
                   Sign in with Google
                   <Image
                     src={"/google.jpg"}
