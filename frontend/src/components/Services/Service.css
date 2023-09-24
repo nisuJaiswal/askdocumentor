@@ -1,0 +1,30 @@
+.service{
+    margin-top: 2%;
+    background-attachment: fixed;
+    width: 100%;
+    height: 55vw;
+    display: grid;
+    grid-template-rows: 30% 60%;
+}
+.sercon{
+    text-align: center;
+    margin-top: 3%;
+}
+.sercon h2{
+    font-size: 40px;
+}
+.sercon p{
+    margin-top: 3%;
+}
+.sergal{
+    margin-top: 3%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.sergal .sergal1 img{
+    padding-top: 2%;
+    width: 100%;
+    height: 55%;
+    overflow-y: hidden;
+}
