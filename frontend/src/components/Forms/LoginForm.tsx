@@ -31,7 +31,7 @@ const FormSchema = z.object({
 const LoginForm = () => {
   const router = useRouter();
   const { data: session } = useSession();
-  if (session && session.user) router.push("/");
+  // if (session && session.user) router.push("/");
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -42,7 +42,7 @@ const LoginForm = () => {
     },
   });
   const onSubmit = async (values: z.infer<typeof FormSchema>) => {
-    console.log(values);
+    console.log("Valuessss: ", values);
     const signInData = await signIn("credentials", {
       username: values.username,
       password: values.password,

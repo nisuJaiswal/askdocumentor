@@ -48,6 +48,7 @@ const SignUpForm = () => {
         password: values.password,
         email: values.email,
       });
+      console.log(data);
       if (data) {
         router.push("/");
       }
@@ -208,7 +209,7 @@ const SignUpForm = () => {
         {/* bottom */}
         <p className="text-center text-gray-400 ">
           Have an account?{" "}
-          <Link href={"/login"}>
+          <Link href={"/log-in"}>
             <p className="text-blue-700">Sign In</p>
           </Link>
         </p>
