@@ -23,7 +23,7 @@ export async function POST(req: Request) {
     console.log(email);
 
     const existingUser = await db.user.findUnique({
-      where: { email: email },
+      where: { email: email.toLowerCase() },
     });
 
     if (existingUser) {
