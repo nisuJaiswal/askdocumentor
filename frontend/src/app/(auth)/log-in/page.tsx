@@ -6,6 +6,10 @@ import Image from "next/image";
 //import { useState } from "react";
 
 export default function Login() {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e;
+  };
+
   //const [show, setShow] = useState(false)
   return (
     <>
@@ -17,7 +21,7 @@ export default function Login() {
           <h1 className="text-gray-800 text-4xl font-bold py-4">Explore</h1>
         </div>
         <div className="form">
-          <form className="flex flex-col gap-5">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-5">
             <div className={styles.input_group}>
               <input
                 type="email"
