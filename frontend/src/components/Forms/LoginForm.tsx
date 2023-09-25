@@ -14,6 +14,11 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import Google from '../../Assets/google.png';
+import Github from '../../Assets/github.png';
+import { Toaster } from "../ui/toaster";
+import { useToast } from "@/components/ui/use-toast"
+
 
 const FormSchema = z.object({
   username: z
@@ -29,6 +34,7 @@ const FormSchema = z.object({
     .min(8, "Password must have than 8 characters"),
 });
 const LoginForm = () => {
+  const { toast } = useToast();
   const router = useRouter();
   const { data: session } = useSession();
   // if (session && session.user) router.push("/");
@@ -49,7 +55,15 @@ const LoginForm = () => {
       redirect: false,
     });
     // console.log(signInData);
-    if (signInData?.error) console.log(signInData.error);
+    if (signInData?.error) 
+    {
+      console.log(signInData.error);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: signInData.error,
+      })
+    }
     else router.push("/");
   };
   return (
@@ -111,7 +125,7 @@ const LoginForm = () => {
 
               {/* </div> */}
               <div className="input-button">
-                <Button type="submit">Login</Button>
+                <Button type="submit" className={styles.button}>Login</Button>
               </div>
               <div className="input-button">
                 <button
@@ -121,36 +135,37 @@ const LoginForm = () => {
                 >
                   Sign in with Google
                   <Image
-                    src={"/google.jpg"}
-                    alt="Google Imagae"
+                    src={Google}
+                    alt="Google Image"
                     width="20"
                     height={20}
                   ></Image>
                 </button>
               </div>
-              <div className="input-button">
+        {/*      <div className="input-button">
                 <button type="button" className={styles.button_custom}>
                   Sign in with Github
                   <Image
-                    src="/github.jpg"
+                    src={Github}
                     alt="git image"
                     width="20"
                     height={20}
                   ></Image>
                 </button>
-              </div>
+                </div>*/}
             </form>
           </Form>
         </div>
         <div className="bottom">
           <p className="text-center text-gray-400">
             dont have an account yet?{" "}
-            <Link href={"/register"}>
-              <p className="text-blue-700">Click here</p>
-            </Link>
+            <Link className="text-blue-700" href={"/register"}>
+              {/*<p className="text-blue-700">Click here</p>
+            */}Click Here</Link>
           </p>
         </div>
       </section>
+      <Toaster/>
     </>
   );
 };

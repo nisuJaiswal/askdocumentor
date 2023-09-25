@@ -11,7 +11,9 @@ import { Form, FormControl, FormField, FormItem } from "../ui/form";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { useForm } from "react-hook-form";
+import { useToast } from "@/components/ui/use-toast"
 import axios, { AxiosError } from "axios";
+import { Toaster } from "../ui/toaster";
 
 const FormSchema = z.object({
   email: z.string().min(1, "Email is Required").email("Email is Invalid"),
@@ -30,6 +32,7 @@ const FormSchema = z.object({
 });
 
 const SignUpForm = () => {
+  const { toast } = useToast()
   const router = useRouter();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -53,7 +56,14 @@ const SignUpForm = () => {
         router.push("/");
       }
     } catch (error) {
-      if (error instanceof AxiosError) console.log(error.response?.data.msg);
+      if (error instanceof AxiosError) 
+      {
+        console.log(error.response?.data.msg);
+        toast({
+          title: "Error",
+          description: "OOoooooppsss!! Something went wrong , we are sorry for inconveinence Please try again",
+        })
+      }
     }
   };
   return (
@@ -209,11 +219,13 @@ const SignUpForm = () => {
         {/* bottom */}
         <p className="text-center text-gray-400 ">
           Have an account?{" "}
-          <Link href={"/log-in"}>
-            <p className="text-blue-700">Sign In</p>
-          </Link>
+          <Link className="text-blue-700" href={"/log-in"}>
+            Click Here
+            {/*<p className="text-blue-700">Sign In</p>
+         */} </Link>
         </p>
       </section>
+      <Toaster />
     </>
   );
 };
